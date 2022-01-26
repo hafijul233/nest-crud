@@ -1,13 +1,16 @@
 import { NestFactory } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { join } from 'path';
 import { AppModule } from './app.module';
-import { AppConfigService } from './config/app/config.service';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
-  // Get app config for cors settings and starting the app.
-  const appConfig: AppConfigService = app.get('AppConfigService');
-
-  await app.listen(appConfig.port);
+  await app
+    .useStaticAssets(join(__dirname, '..', 'public'))
+    .setBaseViewsDir(join(__dirname, '..', 'resources', 'views'))
+    .setViewEngine('hbs')
+    .listen(3000);
 }
+
 bootstrap();
