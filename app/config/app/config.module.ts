@@ -1,4 +1,4 @@
-import * as Joi from '@hapi/joi';
+import * as Joi from 'joi';
 import { Module } from '@nestjs/common';
 import configuration from './configuration';
 import { AppConfigService } from './config.service';
@@ -15,8 +15,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       load: [configuration],
       validationSchema: Joi.object({
         APP_NAME: Joi.string().default('MyApp'),
+        APP_KEY: Joi.string().default('MyApp'),
         APP_ENV: Joi.string()
-          .valid('development', 'production', 'test', 'provision')
+          .valid('development', 'production', 'test', 'provision', 'local')
           .default('development'),
         APP_URL: Joi.string().default('http://my-app.test'),
         APP_PORT: Joi.number().default(9000),

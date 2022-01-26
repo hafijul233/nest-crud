@@ -13,6 +13,9 @@ export class AppConfigService {
   get name(): string {
     return this.configService.get<string>('app.name');
   }
+  get key(): string {
+    return this.configService.get<string>('app.key');
+  }
 
   get env(): string {
     return this.configService.get<string>('app.env');
