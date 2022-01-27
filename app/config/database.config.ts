@@ -12,7 +12,7 @@ export default registerAs('database', () => ({
 	|
 		*/
 
-  default: process.env.DB_CONNECTION || 'mysql',
+  default: process.env.DB_CONNECTION || 'default',
 
   /*
 	|--------------------------------------------------------------------------
@@ -45,7 +45,7 @@ export default registerAs('database', () => ({
     /*
      * MySQL
      */
-    mysql: {
+    default: {
       driver: 'mysql',
       url: process.env.DATABASE_URL || 'http://localhost',
       host: process.env.DB_HOST || 'localhost',
@@ -107,7 +107,7 @@ export default registerAs('database', () => ({
 	| your application. Using this information, we can determine which of
 	| the migrations on disk haven't actually been run in the database.
 	|
-		*/
+	*/
 
   migrations: 'migrations',
 
