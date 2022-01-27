@@ -7,7 +7,7 @@ import { ConfigService } from '@nestjs/config';
  * @class
  */
 @Injectable()
-export class ViewConfigService {
+export class TypeORMConfigService {
   constructor(private configService: ConfigService) {}
 
   get assetPath(): string {

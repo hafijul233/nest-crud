@@ -1,11 +1,17 @@
 import { Module } from '@nestjs/common';
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
-import { AppConfigModule } from './config/app/config.module';
-import { ViewConfigModule } from './config/view/config.module';
+import { ConfigModule } from '@nestjs/config';
+import appConfig from './config/app.config';
+import ViewConfig from './config/view.config';
 
 @Module({
-  imports: [AppConfigModule, ViewConfigModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [appConfig, ViewConfig],
+    }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

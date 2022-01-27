@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import configuration from './configuration';
-import { ViewConfigService } from './config.service';
+import { TypeORMConfigService } from './config.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 /**
@@ -14,7 +14,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       load: [configuration],
     }),
   ],
-  providers: [ConfigService, ViewConfigService],
-  exports: [ConfigService, ViewConfigService],
+  providers: [ConfigService, TypeORMConfigService],
+  exports: [ConfigService, TypeORMConfigService],
 })
-export class ViewConfigModule {}
+export class TypeORMConfigModule {}
