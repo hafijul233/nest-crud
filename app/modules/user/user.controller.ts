@@ -19,7 +19,7 @@ import {
 import { User } from './entities/user.entity';
 
 @ApiBearerAuth()
-@ApiTags('users')
+@ApiTags('user')
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -43,16 +43,34 @@ export class UserController {
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Return single user with given id' })
+  @ApiResponse({
+    status: 200,
+    description: 'Return single user with given id',
+    type: User,
+  })
   findOne(@Param('id') id: string) {
     return this.userService.findOne(+id);
   }
 
   @Patch(':id')
+  @ApiOperation({ summary: 'Update single user information with given id' })
+  @ApiResponse({
+    status: 200,
+    description: 'Update single user information with given id',
+    type: User,
+  })
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(+id, updateUserDto);
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: 'Delete single user row with given id' })
+  @ApiResponse({
+    status: 200,
+    description: 'Delete single user row with given id',
+    type: User,
+  })
   remove(@Param('id') id: string) {
     return this.userService.remove(+id);
   }
