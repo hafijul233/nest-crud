@@ -24,13 +24,6 @@ import { User } from './entities/user.entity';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post()
-  @ApiOperation({ summary: 'Create new user from application' })
-  @ApiResponse({ status: 403, description: 'Forbidden.' })
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
-  }
-
   @Get()
   @ApiOperation({ summary: 'Return all users list' })
   @ApiResponse({
@@ -38,8 +31,15 @@ export class UserController {
     description: 'Return all users list as a pagination',
     type: User,
   })
-  findAll() {
+  index() {
     return this.userService.findAll();
+  }
+
+  @Post()
+  @ApiOperation({ summary: 'Create new user from application' })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  create(@Body() createUserDto: CreateUserDto) {
+    return this.userService.create(createUserDto);
   }
 
   @Get(':id')
