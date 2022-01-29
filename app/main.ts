@@ -23,6 +23,7 @@ async function bootstrap() {
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('api-sample', app, document);
   }
+
   //application boot code
   const engine = new Liquid({
     root: configService.get<string>('view.view'),
