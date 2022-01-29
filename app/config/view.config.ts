@@ -13,7 +13,7 @@ export default registerAs('view', () => ({
   |
   */
 
-  asset: join(__dirname, '..', 'public'),
+  asset: join(__dirname, '..', '..', 'public'),
 
   /*
   |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ export default registerAs('view', () => ({
   |
   */
 
-  view: join(__dirname, '..', 'resources', 'views'),
+  view: join(__dirname, '..', '..', 'resources', 'views'),
 
   /*
 	|--------------------------------------------------------------------------
@@ -39,5 +39,5 @@ export default registerAs('view', () => ({
 	|
 	*/
 
-  engine: 'hbs',
+  engine: 'liquid',
 }));
