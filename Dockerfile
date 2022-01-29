@@ -21,9 +21,9 @@ COPY . .
 
 EXPOSE 8080
 
-
+RUN npm build
 # App Start Command
-CMD [ "node", "run start" ]
+CMD [ "node", "main" ]
 
 
 
