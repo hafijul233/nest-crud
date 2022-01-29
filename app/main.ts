@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { Liquid } from 'liquidjs';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
@@ -11,6 +12,18 @@ async function bootstrap() {
 
   const configService = app.get<ConfigService>(ConfigService);
 
+  //openapi boot code
+  if (configService.get<string>('app.env') === 'local') {
+    const config = new DocumentBuilder()
+      .setTitle('My Cash Money API Docs')
+      .setDescription('Some descriptions')
+      .setVersion('1.0')
+      .addTag('mycashmoney')
+      .build();
+    const document = SwaggerModule.createDocument(app, config);
+    SwaggerModule.setup('api-sample', app, document);
+  }
+  //application boot code
   const engine = new Liquid({
     root: configService.get<string>('view.view'),
     cache: configService.get<string>('app.env') === 'production',
@@ -22,7 +35,6 @@ async function bootstrap() {
   });
 
   app.engine('liquid', engine.express());
-
   await app
     .setViewEngine(configService.get<string>('view.engine'))
     .useStaticAssets(configService.get<string>('view.asset'))
