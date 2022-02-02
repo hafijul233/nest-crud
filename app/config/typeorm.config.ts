@@ -1,10 +1,10 @@
-import { ConfigService } from '@nestjs/config';
-import { join } from 'path';
-import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
+import {ConfigService} from '@nestjs/config';
+import {join} from 'path';
+import {TypeOrmOptionsFactory} from '@nestjs/typeorm';
 
 export class TypeOrmConfig implements TypeOrmOptionsFactory {
   public defaultConnection = 'default';
-
+  
   public commonConnectionOptions = {
     entities: ['dist/models/**/*{.ts,.js}'],
     subscribers: ['dist/observers/**/*{.ts,.js}'],
@@ -18,21 +18,22 @@ export class TypeOrmConfig implements TypeOrmOptionsFactory {
       subscribersDir: join('app', 'observers'),
     },
   };
-
-  constructor(public configService: ConfigService) {}
-
+  
+  constructor(public configService: ConfigService) {
+  }
+  
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   createTypeOrmOptions() {
     let connectionConfig = this.configService;
-
+    
     console.log(connectionConfig);
-
+    
     connectionConfig = this.configService.get(
       'database.connections.default',
       null,
     );
-
+    
     if (connectionConfig == null) {
       throw 'Invalid Connection Name on DB Config File';
     } else {

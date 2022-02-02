@@ -4,8 +4,6 @@ import { ConfigService } from '@nestjs/config';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { Liquid } from 'liquidjs';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import databaseConfig from './config/database.config';
-import { exit } from '@nestjs/cli/actions';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
@@ -17,7 +15,7 @@ async function bootstrap() {
   //openapi boot code
   if (configService.get<string>('app.env') === 'local') {
     const config = new DocumentBuilder()
-      .setTitle('My Cash Money API Docs')
+      .setTitle('My Cash Money API Documentation')
       .setDescription('Some descriptions')
       .setVersion('1.0')
       .addTag('mycashmoney')
