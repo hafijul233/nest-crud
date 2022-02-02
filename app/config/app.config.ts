@@ -1,4 +1,5 @@
 import { registerAs } from '@nestjs/config';
+import { join } from 'path';
 
 export default registerAs('app', () => ({
   /*
@@ -67,19 +68,6 @@ export default registerAs('app', () => ({
   port: parseInt(process.env.APP_PORT, 10) || 4004,
 
   /*
-  |--------------------------------------------------------------------------
-  | Asset URL
-  |--------------------------------------------------------------------------
-  |
-  | This URL is used by the console to properly generate URLs when using
-  | the Artisan command line tool. You should set this to the root of
-  | your Asset so that it is used when running Artisan tasks.
-  |
-  */
-
-  asset_url: process.env.ASSET_URL || process.env.APP_URL || 'http://localhost',
-
-  /*
 	|--------------------------------------------------------------------------
 	| Application Date & Time
 	|--------------------------------------------------------------------------
@@ -140,7 +128,7 @@ export default registerAs('app', () => ({
 	| Encryption Key
 	|--------------------------------------------------------------------------
 	|
-	| This key is used by the Illuminate encrypter service and should be set
+	| This key is used by to Illuminate encrypted service and should be set
 	| to a random, 32 character string, otherwise these encrypted strings
 	| will not be safe. Please do this before deploying an application!
 	|
