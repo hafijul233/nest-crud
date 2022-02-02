@@ -46,28 +46,21 @@ export default registerAs('database', () => ({
      * MySQL
      */
     default: {
-      driver: 'mysql',
-      url: process.env.DATABASE_URL || 'http://localhost',
+      type: 'mysql',
+      url: process.env.DATABASE_URL || 'localhost',
       host: process.env.DB_HOST || 'localhost',
       port: process.env.DB_PORT || '3306',
       database: process.env.DB_DATABASE || 'forge',
       username: process.env.DB_USERNAME || 'forge',
       password: process.env.DB_PASSWORD || '',
-      unix_socket: process.env.DB_SOCKET || '',
-      charset: 'utf8mb4',
-      collation: 'utf8mb4_unicode_ci',
-      prefix: '',
-      prefix_indexes: true,
-      strict: false,
-      engine: null,
-      options: {},
+      charset: 'UTF8MB4_UNICODE_CI',
     },
 
     /*
      * PostgresSQL
      */
     pgsql: {
-      driver: 'pgsql',
+      type: 'pgsql',
       url: process.env.DATABASE_URL,
       host: process.env.DB_HOST || '127.0.0.1',
       port: process.env.DB_PORT || '5432',
@@ -85,7 +78,7 @@ export default registerAs('database', () => ({
      * Microsoft SQL Server
      */
     mssql: {
-      driver: 'sqlsrv',
+      type: 'sqlsrv',
       url: process.env.DATABASE_URL,
       host: process.env.DB_HOST || 'localhost',
       port: process.env.DB_PORT || '1433',

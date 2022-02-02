@@ -4,6 +4,8 @@ import { ConfigService } from '@nestjs/config';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { Liquid } from 'liquidjs';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import databaseConfig from './config/database.config';
+import { exit } from '@nestjs/cli/actions';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
@@ -21,7 +23,7 @@ async function bootstrap() {
       .addTag('mycashmoney')
       .build();
     const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('api-sample', app, document);
+    SwaggerModule.setup('docs', app, document);
   }
 
   //application boot code
@@ -40,6 +42,7 @@ async function bootstrap() {
     .setViewEngine(configService.get<string>('view.engine'))
     .useStaticAssets(configService.get<string>('view.asset'))
     .setBaseViewsDir(configService.get<string>('view.view'))
+    .setGlobalPrefix('api/v1')
     .listen(configService.get<number>('app.port'));
 }
 

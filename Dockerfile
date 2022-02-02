@@ -20,10 +20,10 @@ RUN npm install
 COPY . .
 
 EXPOSE 8080
+# Run App Build Command
+RUN npm run build
 
-RUN npm build
-# App Start Command
-CMD [ "node", "main" ]
-
+# Start App
+RUN npm run start:dev
 
 
