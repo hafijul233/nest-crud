@@ -11,18 +11,6 @@ async function bootstrap() {
 
   const configService = app.get<ConfigService>(ConfigService);
 
-  //openapi boot code
-  if (configService.get<string>('app.env') === 'local') {
-    const config = new DocumentBuilder()
-      .setTitle('My Cash Money API Documentation')
-      .setDescription('Some descriptions')
-      .setVersion('1.0')
-      .addTag('mycashmoney')
-      .build();
-    const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('docs', app, document);
-  }
-
   //application boot code
   /*  const engine = new Liquid({
     root: configService.get<string>('view.view'),
@@ -39,6 +27,19 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api/v1');
 
+  //openapi boot code
+  if (configService.get<string>('app.env') === 'local') {
+    const config = new DocumentBuilder()
+      .setTitle('My Cash Money API Documentation')
+      .setDescription('Some descriptions')
+      .setVersion('1.0')
+      .addTag('mycashmoney')
+      .build();
+    const document = SwaggerModule.createDocument(app, config);
+    SwaggerModule.setup('docs', app, document);
+  }
+
+  //start application
   await app.listen(configService.get<number>('app.port'));
 }
 

@@ -1,17 +1,19 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import appConfig from './config/app.config';
-import viewConfig from './config/view.config';
-import databaseConfig from './config/database.config';
 import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import appConfig from './config/app.config';
+import viewConfig from './config/view.config';
+import storageConfig from './config/storage.config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [appConfig, viewConfig, databaseConfig],
+      load: [appConfig, viewConfig, storageConfig],
     }),
+    TypeOrmModule.forRoot(),
     AuthModule,
     UserModule,
   ],

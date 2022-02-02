@@ -1,0 +1,30 @@
+{
+  "type": "mysql",
+  "name": "default",
+  "url": "localhost",
+  "host": "localhost",
+  "port": "3306",
+  "database": "forge",
+  "username": "root",
+  "password": "",
+  "charset": "UTF8MB4_UNICODE_CI",
+  "entities": [
+    "dist/models/**/*{.ts,.js}"
+  ],
+  "subscribers": [
+    "dist/observers/**/*{.ts,.js}"
+  ],
+  "migrationsTableName": "migrations",
+  "migrations": [
+    "database/migrations/**/*{.ts,.js}"
+  ],
+  "logging": true,
+  "synchronize": true,
+  "cli": {
+    "entitiesDir": [
+      "modules/**/entities/*{.ts,.js}"
+    ],
+    "migrationsDir": "app/database/migrations",
+    "subscribersDir": "modules/**/subscribers/*{.ts,.js}"
+  }
+}
