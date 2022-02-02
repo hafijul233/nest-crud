@@ -15,15 +15,15 @@
   ],
   "migrationsTableName": "migrations",
   "migrations": [
-    "database/migrations/**/*{.ts,.js}"
+    "dist/database/migrations/**/*{.ts,.js}"
   ],
   "logging": true,
-  "synchronize": true,
+  "synchronize": false,
   "cli": {
     "entitiesDir": [
-      "modules/**/entities/*{.ts,.js}"
+      "dist/modules/**/entities/*{.ts,.js}"
     ],
-    "migrationsDir": "app/database/migrations",
-    "subscribersDir": "modules/**/subscribers/*{.ts,.js}"
+    "migrationsDir": "dist/database/migrations",
+    "subscribersDir": "dist/modules/**/subscribers/*{.ts,.js}"
   }
 }

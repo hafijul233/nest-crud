@@ -1,5 +1,4 @@
 import { registerAs } from '@nestjs/config';
-import { join } from 'path';
 
 export default registerAs('app', () => ({
   /*

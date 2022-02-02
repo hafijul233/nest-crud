@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import appConfig from './config/app.config';
 import viewConfig from './config/view.config';
 import storageConfig from './config/storage.config';
+import { getConnectionOptions } from 'typeorm';
 
 @Module({
   imports: [
@@ -13,7 +14,12 @@ import storageConfig from './config/storage.config';
       isGlobal: true,
       load: [appConfig, viewConfig, storageConfig],
     }),
-    TypeOrmModule.forRoot(),
+    TypeOrmModule.forRootAsync({
+      useFactory: async () =>
+        Object.assign(await getConnectionOptions(), {
+          autoLoadEntities: true,
+        }),
+    }),
     AuthModule,
     UserModule,
   ],

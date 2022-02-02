@@ -1,16 +1,28 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
 } from '@nestjs/common';
-import { UserService } from './user.service';
+import { UserService } from './services/user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiForbiddenResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { User } from './entities/user.entity';
+import { UserPaginateDto } from './dto/user.paginate.dto';
 
+@ApiTags('users')
+@ApiBearerAuth()
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -21,6 +33,17 @@ export class UserController {
   }
 
   @Get()
+  @ApiBody({
+    description: 'List of all system users',
+    type: UserPaginateDto,
+  })
+  @ApiOkResponse({
+    description: 'Paginated List of all users',
+    isArray: true,
+    type: UserPaginateDto,
+  })
+  @ApiForbiddenResponse({ description: 'Access Forbidden' })
+  @ApiNotFoundResponse({ description: 'User Not Found' })
   findAll() {
     return this.userService.findAll();
   }
