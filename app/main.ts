@@ -44,9 +44,20 @@ async function bootstrap() {
   if (configService.get<string>('app.env') === 'local') {
     const config = new DocumentBuilder()
       .setTitle('My Cash Money API Documentation')
-      .setDescription('Some descriptions')
-      .setVersion('1.0')
-      .addTag('mycashmoney')
+      .setDescription(
+        'My Cash Money Remittance transfer service provider and Web Api System.',
+      )
+      .setVersion('1.0.0')
+      .setContact('My Cash Money', 'https://mycash.my/', 'support@mycashmy.com')
+      .setBasePath(
+        'https://' +
+          configService.get<string>('app.url') +
+          ':' +
+          configService.get<string>('app.port') +
+          '/api/v1',
+      )
+      .setTermsOfService('https://mycash.my/terms-condition')
+      .setLicense('My Cash Money', 'My Cash Money License')
       .build();
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('docs', app, document);
