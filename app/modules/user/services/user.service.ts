@@ -18,11 +18,11 @@ export class UserService {
   }
 
   async findAll(filters = {}) {
-    return this.userRepository.filterData(filters);
+    return this.userRepository.find(filters);
   }
 
-  findOne(id: number) {
-    console.log('message 2');
+  async findOne(id: number) {
+    return this.userRepository.findOne(id);
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

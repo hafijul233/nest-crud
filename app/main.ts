@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { pagination } from './common/middlewares/paginate.middleware';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
@@ -28,8 +29,16 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api/v1');
 
-  //Register pagination express middleware
-  app.use(pagination);
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      transform: true,
+      forbidNonWhitelisted: true,
+    }),
+  );
+
+  /*  //Register pagination express middleware
+  app.use(pagination);*/
 
   //openapi boot code
   if (configService.get<string>('app.env') === 'local') {
