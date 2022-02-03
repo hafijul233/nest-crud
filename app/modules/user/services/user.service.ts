@@ -1,26 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
-import { Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserRepository } from '../repositories/user.repository';
+import { SelectQueryBuilder } from 'typeorm';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User)
-    private readonly userRepository: UserRepository,
+    private userRepository: UserRepository,
   ) {}
 
   create(createUserDto: CreateUserDto) {
     return 'This action adds a new user';
   }
 
-  async findAll(filters = {}): Promise<User[]> {
-    /*    const userRepository = getCustomRepository(UserRepository);*/
-    // @ts-ignore
-    return this.userRepository.createQueryBuilder().paginate();
+  async findAll(filters = {}) {
+    return this.userRepository.filterData(filters);
   }
 
   findOne(id: number) {

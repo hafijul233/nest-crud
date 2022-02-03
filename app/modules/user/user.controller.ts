@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Req,
 } from '@nestjs/common';
 import { UserService } from './services/user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -18,10 +19,10 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { User } from './entities/user.entity';
 import { UserPaginateDto } from './dto/user.paginate.dto';
+import { Request } from 'express';
 
-@ApiTags('users')
+@ApiTags('User Resource')
 @ApiBearerAuth()
 @Controller('users')
 export class UserController {
@@ -44,8 +45,10 @@ export class UserController {
   })
   @ApiForbiddenResponse({ description: 'Access Forbidden' })
   @ApiNotFoundResponse({ description: 'User Not Found' })
-  findAll() {
-    return this.userService.findAll();
+  findAll(@Req() request: Request, @Body() body: Body) {
+    const inputs = request.body;
+    return body;
+    //return this.userService.findAll(inputs);
   }
 
   @Get(':id')
